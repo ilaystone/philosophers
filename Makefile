@@ -6,7 +6,7 @@
 #    By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 09:59:25 by ikhadem           #+#    #+#              #
-#    Updated: 2021/09/24 10:17:37 by ikhadem          ###   ########.fr        #
+#    Updated: 2021/09/24 10:58:45 by ikhadem          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ GREEN		=	\e[38;5;118m
 RESET		=	\e[0m
 _SUCCESS	=	[$(GREEN)SUCCESS$(RESET)]
 
-NAME := philosophers
+NAME := philo
 
 SRC :=	main.c \
 
