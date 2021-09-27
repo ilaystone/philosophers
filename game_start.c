@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:55:26 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 11:25:09 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/27 11:30:31 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int	game_start(t_game *game)
 {
-	(void)game;
-	printf("Game started\n");
+	int		i;
+
+	i = 0;
+	while (i < game->rules.number_of_philosophers)
+	{
+		pthread_join(game->philosophers[i], NULL);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 11:01:19 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:02:53 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <pthread.h>
 
-typedef struct	s_game_rules
+typedef struct s_game_rules
 {
 	int			number_of_philosophers;
 	int			time_to_die;
@@ -27,10 +27,18 @@ typedef struct	s_game_rules
 	int			number_of_times_to_eats;
 }	t_game_rules;
 
-typedef struct		s_game
+typedef struct s_philosopher
+{
+	int				id;
+	pthread_t		t;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
+}	t_philosopher;
+
+typedef struct s_game
 {
 	t_game_rules		rules;
-	pthread_t			*philosophers;
+	t_philosopher		*philosophers;
 	pthread_mutex_t		*forks;
 }	t_game;
 
