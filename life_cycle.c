@@ -3,23 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   life_cycle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilay <ilay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 16:12:18 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/27 20:06:25 by ilay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+static unsigned long	time_diff(struct timeval t1, struct timeval t2)
+{
+	return ((t1.tv_sec * 1000000 + t1.tv_usec) - (t2.tv_sec * 1000000 + t2.tv_usec));
+}
+
 static void	philo_eating(t_philosopher *self)
 {
 	(void)self;
 	struct	timeval current_time;
+	struct	timeval next_time;
 	gettimeofday(&current_time, NULL);
-	printf("id: %d eating time: %lld\n",self->id,
-			current_time.tv_sec*(uint64_t)1000000+current_time.tv_usec);
 	sleep(2);
+	gettimeofday(&next_time, NULL);
+	printf("id: %d eating time: %ld\n",self->id, time_diff(next_time, current_time) / 1000000);
 }
 
 // static void	philo_sleeping(t_philosopher *self)

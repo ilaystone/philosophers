@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilay <ilay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 16:03:52 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/27 18:42:52 by ilay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ int	game_init(t_game *game, t_game_rules rules)
 	if (!init_philosophers(game, rules))
 		return (error_init(game));
 	set_forks(game);
-	for (int i = 0; i < rules.number_of_philosophers; i++)
-		printf("fork %d add %p\n", i, &game->forks[i]);
-	for (int i = 0; i < rules.number_of_philosophers; i++)
-		printf ("philo[%d] right: \'%p\' left: \'%p\'\n", i,
-			game->philosophers[i].right_fork,
-			game->philosophers[i].left_fork);
+	// for (int i = 0; i < rules.number_of_philosophers; i++)
+	// 	printf("fork %d add %p\n", i, &game->forks[i]);
+	// for (int i = 0; i < rules.number_of_philosophers; i++)
+	// 	printf ("philo[%d] right: \'%p\' left: \'%p\'\n", i,
+	// 		game->philosophers[i].right_fork,
+	// 		game->philosophers[i].left_fork);
 	return (1);
 }
