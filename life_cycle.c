@@ -6,37 +6,45 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 13:01:00 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/27 16:12:18 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	philo_eating(t_game *game)
+static void	philo_eating(t_philosopher *self)
 {
-	pthread_mutex_lock(game->forks[game->])
+	(void)self;
+	struct	timeval current_time;
+	gettimeofday(&current_time, NULL);
+	printf("id: %d eating time: %lld\n",self->id,
+			current_time.tv_sec*(uint64_t)1000000+current_time.tv_usec);
+	sleep(2);
 }
 
-static void	philo_sleeping(t_game *game)
-{
-	printf("philo is sleeping\n");
-}
+// static void	philo_sleeping(t_philosopher *self)
+// {
+// 	(void)self;
+// 	printf("philo is sleeping\n");
+// }
 
-static void	philo_thinking(t_game *game)
-{
-	printf("philo is thinking\n");
-}
+// static void	philo_thinking(t_philosopher *self)
+// {
+// 	(void)self;
+// 	printf("philo is thinking\n");
+// }
 
 
 void	*life_cycle(void *data)
 {
-	t_game	*game;
+	t_philosopher *self;
 
-	game = (t_game *)data;
+	self = data;
 	while (1)
 	{
-		philo_eating(game);
-		philo_sleeping(game);
-		philo_thinking(game);
+		philo_eating(self);
+		// philo_sleeping(self);
+		// philo_thinking(self);
 	}
+	return (data);
 }
