@@ -6,26 +6,31 @@
 /*   By: ilay <ilay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 20:06:25 by ilay             ###   ########.fr       */
+/*   Updated: 2021/09/28 01:51:18 by ilay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static unsigned long	time_diff(struct timeval t1, struct timeval t2)
-{
-	return ((t1.tv_sec * 1000000 + t1.tv_usec) - (t2.tv_sec * 1000000 + t2.tv_usec));
-}
+// static unsigned long	time_diff(struct timeval t1, struct timeval t2)
+// {
+// 	return ((t1.tv_sec * 1000000 + t1.tv_usec) - (t2.tv_sec * 1000000 + t2.tv_usec));
+// }
 
 static void	philo_eating(t_philosopher *self)
 {
-	(void)self;
-	struct	timeval current_time;
-	struct	timeval next_time;
-	gettimeofday(&current_time, NULL);
-	sleep(2);
-	gettimeofday(&next_time, NULL);
-	printf("id: %d eating time: %ld\n",self->id, time_diff(next_time, current_time) / 1000000);
+	// static int	count = 0;
+	pthread_mutex_lock(self->right_fork);
+	pthread_mutex_lock(self->left_fork);
+	printf("%d has taken a fork\n", self->id);
+	printf("%d has taken a fork\n", self->id);
+	usleep(200);
+	printf("%d is eating\n", self->id);
+	pthread_mutex_unlock(self->right_fork);
+	pthread_mutex_unlock(self->left_fork);
+	// count++;
+	// if (count == 10)
+	// 	exit(0);
 }
 
 // static void	philo_sleeping(t_philosopher *self)
