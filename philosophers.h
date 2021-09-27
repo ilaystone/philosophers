@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 09:39:45 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/27 11:01:19 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,9 @@ int		ft_strisdigit(char *str);
 
 int		philo_parse_args(int ac, char **av, t_game_rules *r);
 int		simulation_start(t_game_rules rules);
+int		game_init(t_game *game, t_game_rules rules);
+void	game_destroy(t_game *game);
+void	*life_cycle(void *data);
+int		game_start(t_game *game);
 
 #endif

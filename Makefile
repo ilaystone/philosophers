@@ -6,7 +6,7 @@
 #    By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 09:59:25 by ikhadem           #+#    #+#              #
-#    Updated: 2021/09/27 08:55:21 by ikhadem          ###   ########.fr        #
+#    Updated: 2021/09/27 10:53:29 by ikhadem          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,11 @@ NAME := philo
 SRC :=	main.c \
 		philo_parse_args.c \
 		ft_utils.c \
+		simulation.c \
+		game_init.c \
+		game_start.c \
+		life_cycle.c \
+		game_destroy.c \
 
 OBJ := $(SRC:.c=.o)
 

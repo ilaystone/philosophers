@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   life_cycle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/20 11:06:38 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 11:04:06 by ikhadem          ###   ########.fr       */
+/*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
+/*   Updated: 2021/09/27 11:23:32 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av)
+static void	philo_eating()
 {
-	t_game_rules	rules;
-	if (ac == 5 || ac == 6)
+
+}
+
+static void	philo_sleeping()
+{
+
+}
+
+static void	philo_thinking()
+{
+
+}
+
+
+void	*life_cycle(void *data)
+{
+	(void)data;
+	printf("startiing philo\n");
+	while (1)
 	{
-		if (!philo_parse_args(ac, av, &rules))
-		{
-			write(2, "Error: parsing\n", 15);
-			return (1);
-		}
-		if (!simulation_start(rules))
-		{
-			write(2, "Error: starting simulation\n", 27);
-			return (1);
-		}
+		philo_eating();
+		philo_sleeping();
+		philo_thinking();
+		// orchestrator_check_death();
 	}
-	else
-		write(2, "Error: number of arguments\n", 27);
-	return (0);
 }
