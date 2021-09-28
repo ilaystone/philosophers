@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilay <ilay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/28 01:45:39 by ilay             ###   ########.fr       */
+/*   Updated: 2021/09/28 15:37:37 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static int	error_init(t_game *game)
 {
-	free(game->philosophers);
-	free(game->forks);
+	if (game->philosophers)
+		free(game->philosophers);
+	if (game->forks)
+		free(game->forks);
 	return (0);
 }
 
@@ -75,24 +77,14 @@ int	game_init(t_game *game, t_game_rules rules)
 	nbr = rules.number_of_philosophers;
 	game->number_of_philosophers = nbr;
 	game->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher) * nbr);
-	if (!game->philosophers)
-		return (0);
-	game->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nbr);
-	if (!game->forks)
-	{
-		free(game->philosophers);
-		return (0);
-	}
+	game->forks = \
+		(pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nbr);
+	if (!game->philosophers || !game->forks)
+		return (error_init(game));
 	if (!init_forks(game))
 		return (error_init(game));
 	set_forks(game);
 	if (!init_philosophers(game, rules))
 		return (error_init(game));
-	// for (int i = 0; i < rules.number_of_philosophers; i++)
-	// 	printf("fork %d add %p\n", i, &game->forks[i]);
-	// for (int i = 0; i < rules.number_of_philosophers; i++)
-	// 	printf ("philo[%d] right: \'%p\' left: \'%p\'\n", i,
-	// 		game->philosophers[i].right_fork,
-	// 		game->philosophers[i].left_fork);
 	return (1);
 }

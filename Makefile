@@ -6,7 +6,7 @@
 #    By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 09:59:25 by ikhadem           #+#    #+#              #
-#    Updated: 2021/09/27 10:53:29 by ikhadem          ###   ########.fr        #
+#    Updated: 2021/09/28 15:38:51 by ikhadem          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC :=	main.c \
 		game_start.c \
 		life_cycle.c \
 		game_destroy.c \
+		philosopher_eat.c \
 
 OBJ := $(SRC:.c=.o)
 
