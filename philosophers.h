@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/28 15:49:13 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/29 14:02:04 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_philosopher
 {
 	int					id;
 	int					times_eaten;
-	time_t				last_time_eaten;
+	struct timeval		last_time_eaten;
 	pthread_t			t;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*left_fork;
@@ -52,17 +52,20 @@ typedef struct s_game
 ** ft_utils **
 *************/
 
-int		ft_isdigit(int c);
-int		ft_isspace(int c);
-int		ft_atoi(const char *str);
-int		ft_strisdigit(char *str);
+int				ft_isdigit(int c);
+int				ft_isspace(int c);
+int				ft_atoi(const char *str);
+int				ft_strisdigit(char *str);
 
-int		philo_parse_args(int ac, char **av, t_game_rules *r);
-int		simulation_start(t_game_rules rules);
-int		game_init(t_game *game, t_game_rules rules);
-int		game_start(t_game *game);
-void	game_destroy(t_game *game);
-void	*life_cycle(void *data);
-void	philo_eating(t_philosopher *self);
+int				philo_parse_args(int ac, char **av, t_game_rules *r);
+int				simulation_start(t_game_rules rules);
+int				game_init(t_game *game, t_game_rules rules);
+int				game_start(t_game *game);
+void			game_destroy(t_game *game);
+void			*life_cycle(void *data);
+void			philo_eating(t_philosopher *self);
+
+void			get_time(struct timeval *tv);
+unsigned long	time_diff(struct timeval t1, struct timeval t2);
 
 #endif
