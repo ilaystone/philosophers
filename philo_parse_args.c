@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:08:48 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 08:42:21 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/09/30 08:02:18 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int	philo_parse_args(int ac, char **av, t_game_rules *r)
 		if (!set_args_five(av, r))
 			return (0);
 	}
+	r->game_start = get_time();
 	return (1);
 }
