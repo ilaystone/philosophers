@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/30 10:34:14 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/04 12:44:56 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ typedef struct s_game_rules
 	uint64_t			game_start;
 }	t_game_rules;
 
+typedef struct s_fork
+{
+	int					state;
+	pthread_mutex_t		lock;
+}	t_fork;
+
 typedef struct s_philosopher
 {
 	int					id;
 	int					times_eaten;
-	pthread_mutex_t		f_state;
-	int					fork_state;
 	uint64_t			last_time_eaten;
+	uint64_t			launch_time;
 	pthread_t			t;
-	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		*left_fork;
+	t_fork				*owned_fork;
+	t_fork				*rented_fork;
 	t_game_rules		rules;
 }	t_philosopher;
 
@@ -50,7 +55,7 @@ typedef struct s_game
 {
 	int					number_of_philosophers;
 	t_philosopher		*philosophers;
-	pthread_mutex_t		*forks;
+	t_fork				*forks;
 }	t_game;
 
 /*************
@@ -68,8 +73,9 @@ int				game_init(t_game *game, t_game_rules rules);
 int				game_start(t_game *game);
 void			game_destroy(t_game *game);
 void			*life_cycle(void *data);
-void			philo_eating(t_philosopher *self);
+int				philo_eating(t_philosopher *self);
 
 uint64_t		get_time(void);
+uint64_t		time_stamp(uint64_t prev);
 
 #endif

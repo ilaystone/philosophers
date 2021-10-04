@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:33:01 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/30 08:39:38 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/04 11:53:04 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,9 @@ uint64_t	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
+
+uint64_t	time_stamp(uint64_t prev)
+{
+	return(get_time() - prev);
 }
