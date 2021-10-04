@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/04 12:44:56 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/04 18:06:28 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define FORK_DIRTY 0
-# define FORK_CLEAN 1
+# define FORK_INUSE 0
+# define FORK_OPEN 1
 
 typedef struct s_game_rules
 {
@@ -35,6 +35,7 @@ typedef struct s_game_rules
 
 typedef struct s_fork
 {
+	int					id;
 	int					state;
 	pthread_mutex_t		lock;
 }	t_fork;
@@ -47,7 +48,8 @@ typedef struct s_philosopher
 	uint64_t			launch_time;
 	pthread_t			t;
 	t_fork				*owned_fork;
-	t_fork				*rented_fork;
+	t_fork				*left_fork;
+	t_fork				*right_fork;
 	t_game_rules		rules;
 }	t_philosopher;
 

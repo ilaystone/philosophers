@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/04 11:55:29 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/04 18:06:43 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ static int	init_forks(t_game *game)
 	i = 0;
 	while (i < game->number_of_philosophers)
 	{
+		game->forks[i].state = FORK_OPEN;
+		game->forks[i].id = i + 1;
 		if (pthread_mutex_init(&game->forks[i].lock, NULL) != 0)
 			return (0);
-		game->forks[i].state = FORK_DIRTY;
-		if (i + 1 == game->number_of_philosophers)
-			game->forks[i].state = FORK_CLEAN;
 		i++;
 	}
 	return (1);
@@ -71,13 +70,19 @@ static void	set_forks(t_game *game)
 {
 	int		i;
 	int		nbr;
+	int		round;
 
 	i = 0;
 	nbr = game->number_of_philosophers;
 	while (i < game->number_of_philosophers)
 	{
 		game->philosophers[i].owned_fork = &game->forks[i];
-		game->philosophers[i].rented_fork = &game->forks[(i + 1) % nbr];
+		game->philosophers[i].left_fork = &game->forks[(i + 1) % nbr];
+		if (i - 1 < 0)
+			round = nbr - 1;
+		else
+			round = i - 1;
+		game->philosophers[i].right_fork = &game->forks[round];
 		i++;
 	}
 }
