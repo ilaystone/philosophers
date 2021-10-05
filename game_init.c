@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/04 18:06:43 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 10:18:35 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	init_philosophers(t_game *game, t_game_rules rules)
 							&(game->philosophers[i])) != 0)
 			return (0);
 		i++;
+		usleep(800);
 	}
 	return (1);
 }
