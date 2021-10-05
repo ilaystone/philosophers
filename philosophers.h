@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 09:59:17 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 13:04:53 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ typedef struct s_philosopher
 {
 	int					id;
 	int					times_eaten;
+	pthread_mutex_t		death_lock;
 	uint64_t			last_time_eaten;
 	uint64_t			launch_time;
 	pthread_t			t;
-	t_fork				*owned_fork; // first fork to take
-	t_fork				*left_fork; // second fork to take
-	t_fork				*right_fork; // condition on taking forks
+	t_fork				*owned_fork;
+	t_fork				*left_fork;
 	t_game_rules		rules;
 }	t_philosopher;
 
@@ -57,6 +57,7 @@ typedef struct s_game
 {
 	int					number_of_philosophers;
 	t_philosopher		*philosophers;
+	pthread_t			monitor;
 	t_fork				*forks;
 }	t_game;
 
@@ -79,5 +80,7 @@ int				philo_eating(t_philosopher *self);
 
 uint64_t		get_time(void);
 uint64_t		time_stamp(uint64_t prev);
+
+int				start_monitor(t_game *game);
 
 #endif

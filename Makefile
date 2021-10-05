@@ -6,7 +6,7 @@
 #    By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 09:59:25 by ikhadem           #+#    #+#              #
-#    Updated: 2021/09/29 14:00:36 by ikhadem          ###   ########.fr        #
+#    Updated: 2021/10/05 13:10:17 by ikhadem          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,12 @@ SRC :=	main.c \
 		game_destroy.c \
 		philosopher_eat.c \
 		custom_time.c \
+		monitor.c \
 
 OBJ := $(SRC:.c=.o)
 
 CC = gcc
-FLAG = -Wall -Wextra -Werror -pthread
+FLAG = -g -Wall -Wextra -Werror -pthread
 HDR = philosophers.h
 
 %.o : %.c $(HDR)

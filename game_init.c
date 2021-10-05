@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 10:18:35 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 17:34:18 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ static int	error_init(t_game *game)
 	int		i;
 
 	i = 0;
-	if (game->philosophers)
-		free(game->philosophers);
 	while (i < game->number_of_philosophers)
 	{
 		pthread_mutex_destroy(&game->forks[i].lock);
+		pthread_mutex_destroy(&game->philosophers[i].death_lock);
 		i++;
 	}
+	if (game->philosophers)
+		free(game->philosophers);
 	if (game->forks)
 		free(game->forks);
 	return (0);
@@ -40,13 +41,15 @@ static int	init_philosophers(t_game *game, t_game_rules rules)
 		game->philosophers[i].rules = rules;
 		game->philosophers[i].last_time_eaten = get_time();
 		game->philosophers[i].launch_time = get_time();
+		if (pthread_mutex_init(&game->philosophers[i].death_lock, NULL) != 0)
+			return (0);
 		if (pthread_create(&game->philosophers[i].t,
 							NULL,
 							&life_cycle,
 							&(game->philosophers[i])) != 0)
 			return (0);
 		i++;
-		usleep(800);
+		usleep(rules.time_to_eat / 2);
 	}
 	return (1);
 }
@@ -71,7 +74,6 @@ static void	set_forks(t_game *game)
 {
 	int		i;
 	int		nbr;
-	int		round;
 
 	i = 0;
 	nbr = game->number_of_philosophers;
@@ -79,11 +81,6 @@ static void	set_forks(t_game *game)
 	{
 		game->philosophers[i].owned_fork = &game->forks[i];
 		game->philosophers[i].left_fork = &game->forks[(i + 1) % nbr];
-		if (i - 1 < 0)
-			round = nbr - 1;
-		else
-			round = i - 1;
-		game->philosophers[i].right_fork = &game->forks[round];
 		i++;
 	}
 }

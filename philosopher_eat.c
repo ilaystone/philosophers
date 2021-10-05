@@ -6,45 +6,54 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 15:36:11 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 10:43:38 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 17:42:10 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int		check_death(t_philosopher *self)
+int	custom_try_lock(t_fork *fork)
 {
-	uint64_t		time;
+	int		i;
 
-	time = get_time();
-	return (time - self->last_time_eaten < self->rules.time_to_die ? 1 : 0);
+	i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&fork->lock);
+		if (fork->state == FORK_OPEN)
+		{
+			fork->state = FORK_INUSE;
+			i++;
+		}
+		pthread_mutex_unlock(&fork->lock);
+		if (i != 0)
+			return (1);
+	}
+	return (0);
+}
+
+int	custom_unlock_fork(t_fork *fork)
+{
+	pthread_mutex_lock(&fork->lock);
+	fork->state = FORK_OPEN;
+	pthread_mutex_unlock(&fork->lock);
+	return (1);
 }
 
 int	philo_eating(t_philosopher *self)
 {
-	while (1)
-	{
-		pthread_mutex_lock(&self->owned_fork->lock);
-		if (self->right_fork->state == FORK_OPEN)
-		{
-			printf("%-3lld ms %d has taken a fork\n", time_stamp(self->launch_time), self->id);
-			self->owned_fork->state = FORK_INUSE;
-			pthread_mutex_lock(&self->left_fork->lock);
-			printf("%-3lld ms %d has taken a fork\n", time_stamp(self->launch_time), self->id);
-			if (!check_death(self))
-			{
-				printf("%-3lld ms %d died\n", time_stamp(self->launch_time), self->id);
-				exit (1);
-			}
-			self->last_time_eaten = get_time();
-			printf("%-3lld ms %d is eating\n", time_stamp(self->launch_time), self->id);
-			usleep(self->rules.time_to_eat * 1000);
-			self->owned_fork->state = FORK_OPEN;
-			pthread_mutex_unlock(&self->left_fork->lock);
-			pthread_mutex_unlock(&self->owned_fork->lock);
-			return (1);
-		}
-		pthread_mutex_unlock(&self->owned_fork->lock);
-	}
-	return (0);
+	custom_try_lock(self->owned_fork);
+	printf("%-3lld ms %d has taken a fork\n", time_stamp(self->launch_time),
+			self->id);
+	custom_try_lock(self->left_fork);
+	printf("%-3lld ms %d has taken a fork\n", time_stamp(self->launch_time),
+			self->id);
+	printf("%-3lld ms %d is eating\n", time_stamp(self->launch_time), self->id);
+	usleep(self->rules.time_to_eat);
+	pthread_mutex_lock(&self->death_lock);
+	self->last_time_eaten = get_time();
+	pthread_mutex_unlock(&self->death_lock);
+	custom_unlock_fork(self->left_fork);
+	custom_unlock_fork(self->owned_fork);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 10:19:09 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 17:38:57 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	philo_sleeping(t_philosopher *self)
 {
 	printf("%-3lld ms %d is sleeping\n", time_stamp(self->launch_time), self->id);
-	usleep(self->rules.time_to_sleep * 1000);
+	usleep(self->rules.time_to_sleep);
 }
 
 static void	philo_thinking(t_philosopher *self)
@@ -30,13 +30,9 @@ void	*life_cycle(void *data)
 	self = (t_philosopher *)data;
 	while (1)
 	{
-		if (!philo_eating(self))
-			break ;
+		philo_eating(self);
 		philo_sleeping(self);
 		philo_thinking(self);
-		if (self->rules.number_of_times_to_eats != -1 &&
-			self->times_eaten == self->rules.number_of_times_to_eats)
-			break;
 	}
 	return (NULL);
 }

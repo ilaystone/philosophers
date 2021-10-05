@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:08:48 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/30 08:02:18 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 17:31:46 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	set_args_four(char **av, t_game_rules *r)
 	}
 	r->number_of_philosophers = ft_atoi(av[1]);
 	r->time_to_die = ft_atoi(av[2]);
-	r->time_to_eat = ft_atoi(av[3]);
-	r->time_to_sleep = ft_atoi(av[4]);
+	r->time_to_eat = ft_atoi(av[3]) * 1000;
+	r->time_to_sleep = ft_atoi(av[4]) * 1000;
 	r->number_of_times_to_eats = -1;
 	return (1);
 }
@@ -44,8 +44,8 @@ static int	set_args_five(char **av, t_game_rules *r)
 	}
 	r->number_of_philosophers = ft_atoi(av[1]);
 	r->time_to_die = ft_atoi(av[2]);
-	r->time_to_eat = ft_atoi(av[3]);
-	r->time_to_sleep = ft_atoi(av[4]);
+	r->time_to_eat = ft_atoi(av[3]) * 1000;
+	r->time_to_sleep = ft_atoi(av[4]) * 1000;
 	r->number_of_times_to_eats = ft_atoi(av[5]);
 	return (1);
 }
