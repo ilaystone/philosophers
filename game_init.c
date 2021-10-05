@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 17:34:18 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 18:48:36 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	error_init(t_game *game)
 		pthread_mutex_destroy(&game->philosophers[i].death_lock);
 		i++;
 	}
+	pthread_mutex_destroy(&game->logger_lock);
 	if (game->philosophers)
 		free(game->philosophers);
 	if (game->forks)
@@ -41,6 +42,7 @@ static int	init_philosophers(t_game *game, t_game_rules rules)
 		game->philosophers[i].rules = rules;
 		game->philosophers[i].last_time_eaten = get_time();
 		game->philosophers[i].launch_time = get_time();
+		game->philosophers[i].logger_lock = &game->logger_lock;
 		if (pthread_mutex_init(&game->philosophers[i].death_lock, NULL) != 0)
 			return (0);
 		if (pthread_create(&game->philosophers[i].t,
@@ -67,6 +69,8 @@ static int	init_forks(t_game *game)
 			return (0);
 		i++;
 	}
+	if (pthread_mutex_init(&game->logger_lock, NULL) != 0)
+			return (0);
 	return (1);
 }
 

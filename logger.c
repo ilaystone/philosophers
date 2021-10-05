@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   life_cycle.c                                       :+:      :+:    :+:   */
+/*   logger.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 18:32:34 by ikhadem          ###   ########.fr       */
+/*   Created: 2021/10/05 12:42:44 by ikhadem           #+#    #+#             */
+/*   Updated: 2021/10/05 18:50:20 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	philo_sleeping(t_philosopher *self)
+void	print_msg(t_philosopher *self, char *msg)
 {
-	print_msg(self, "is sleeping");
-	usleep(self->rules.time_to_sleep);
-}
-
-static void	philo_thinking(t_philosopher *self)
-{
-	print_msg(self, "is thinking");
-}
-
-void	*life_cycle(void *data)
-{
-	t_philosopher *self;
-
-	self = (t_philosopher *)data;
-	while (1)
-	{
-		philo_eating(self);
-		philo_sleeping(self);
-		philo_thinking(self);
-	}
-	return (NULL);
+	pthread_mutex_lock(self->logger_lock);
+	printf("%-3llu ms %-3d %s\n",
+			time_stamp(self->launch_time),
+			self->id,
+			msg);
+	pthread_mutex_unlock(self->logger_lock);
 }

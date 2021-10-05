@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 13:04:53 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 18:37:39 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philosopher
 	int					id;
 	int					times_eaten;
 	pthread_mutex_t		death_lock;
+	pthread_mutex_t		*logger_lock;
 	uint64_t			last_time_eaten;
 	uint64_t			launch_time;
 	pthread_t			t;
@@ -57,7 +58,7 @@ typedef struct s_game
 {
 	int					number_of_philosophers;
 	t_philosopher		*philosophers;
-	pthread_t			monitor;
+	pthread_mutex_t		logger_lock;
 	t_fork				*forks;
 }	t_game;
 
@@ -80,7 +81,6 @@ int				philo_eating(t_philosopher *self);
 
 uint64_t		get_time(void);
 uint64_t		time_stamp(uint64_t prev);
-
-int				start_monitor(t_game *game);
+void			print_msg(t_philosopher *self, char *msg);
 
 #endif

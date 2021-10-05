@@ -6,7 +6,7 @@
 #    By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 09:59:25 by ikhadem           #+#    #+#              #
-#    Updated: 2021/10/05 13:10:17 by ikhadem          ###   ########.fr        #
+#    Updated: 2021/10/05 18:34:13 by ikhadem          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC :=	main.c \
 		game_destroy.c \
 		philosopher_eat.c \
 		custom_time.c \
-		monitor.c \
+		logger.c \
 
 OBJ := $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 15:36:11 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 17:42:10 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/05 18:33:13 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,12 @@ int	custom_unlock_fork(t_fork *fork)
 int	philo_eating(t_philosopher *self)
 {
 	custom_try_lock(self->owned_fork);
-	printf("%-3lld ms %d has taken a fork\n", time_stamp(self->launch_time),
-			self->id);
+	print_msg(self, "has taken a fork");
 	custom_try_lock(self->left_fork);
-	printf("%-3lld ms %d has taken a fork\n", time_stamp(self->launch_time),
-			self->id);
-	printf("%-3lld ms %d is eating\n", time_stamp(self->launch_time), self->id);
-	usleep(self->rules.time_to_eat);
+	print_msg(self, "has taken a fork");
+	print_msg(self, "is eating");
 	pthread_mutex_lock(&self->death_lock);
+	usleep(self->rules.time_to_eat);
 	self->last_time_eaten = get_time();
 	pthread_mutex_unlock(&self->death_lock);
 	custom_unlock_fork(self->left_fork);
