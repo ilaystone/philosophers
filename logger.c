@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:42:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 18:50:20 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/06 10:44:16 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	print_msg(t_philosopher *self, char *msg)
 {
 	pthread_mutex_lock(self->logger_lock);
 	printf("%-3llu ms %-3d %s\n",
-			time_stamp(self->launch_time),
-			self->id,
-			msg);
+		time_stamp(self->launch_time),
+		self->id,
+		msg);
 	pthread_mutex_unlock(self->logger_lock);
 }

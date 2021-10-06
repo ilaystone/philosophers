@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:38 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/09/27 11:04:06 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/06 10:44:33 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_game_rules	rules;
+
 	if (ac == 5 || ac == 6)
 	{
 		if (!philo_parse_args(ac, av, &rules))

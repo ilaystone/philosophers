@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/06 10:39:25 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/06 10:42:02 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static int	init_philosophers(t_game *game, t_game_rules rules, uint64_t l)
 		if (pthread_mutex_init(&game->philosophers[i].death_lock, NULL) != 0)
 			return (0);
 		if (pthread_create(&game->philosophers[i].t,
-							NULL,
-							&life_cycle,
-							&(game->philosophers[i])) != 0)
+				NULL,
+				&life_cycle,
+				&(game->philosophers[i])) != 0)
 			return (0);
 		i++;
 		usleep(rules.time_to_eat / 2);
@@ -70,7 +70,7 @@ static int	init_forks(t_game *game)
 		i++;
 	}
 	if (pthread_mutex_init(&game->logger_lock, NULL) != 0)
-			return (0);
+		return (0);
 	return (1);
 }
 
