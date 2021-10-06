@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:37:35 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 17:45:12 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/06 11:31:56 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	simulation_start(t_game_rules rules)
 
 	if (!game_init(&game, rules))
 		return (0);
-	game_start(&game);
+	game_start(&game, &rules);
 	game_destroy(&game);
 	return (1);
 }

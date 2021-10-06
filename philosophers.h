@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/05 18:37:39 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/06 12:55:53 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_game_rules
 	uint64_t			time_to_die;
 	uint64_t			time_to_eat;
 	uint64_t			time_to_sleep;
-	uint64_t			game_start;
 }	t_game_rules;
 
 typedef struct s_fork
@@ -74,7 +73,7 @@ int				ft_strisdigit(char *str);
 int				philo_parse_args(int ac, char **av, t_game_rules *r);
 int				simulation_start(t_game_rules rules);
 int				game_init(t_game *game, t_game_rules rules);
-int				game_start(t_game *game);
+int				game_start(t_game *game, t_game_rules *rules);
 void			game_destroy(t_game *game);
 void			*life_cycle(void *data);
 int				philo_eating(t_philosopher *self);
