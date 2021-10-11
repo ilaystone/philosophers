@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:55:26 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/06 12:59:40 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/11 13:59:25 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ static int	check_death(t_philosopher *self)
 	time = get_time();
 	if (time - self->last_time_eaten < self->rules.time_to_die)
 		return (1);
+	pthread_mutex_lock(self->logger_lock);
+		printf("%-3llu ms %-3d died\n",
+		time_stamp(self->launch_time),
+		self->id);
 	return (0);
 }
 
@@ -50,10 +54,7 @@ int	game_start(t_game *game, t_game_rules *rules)
 		{
 			pthread_mutex_lock(&game->philosophers[i].death_lock);
 			if (!check_death(&game->philosophers[i]))
-			{
-				print_msg(&game->philosophers[i], "died");
 				return (0);
-			}
 			if (number_of_times_eaten(game) == game->number_of_philosophers)
 			{
 				pthread_mutex_lock(&game->logger_lock);
