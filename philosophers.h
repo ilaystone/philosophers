@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/11 13:52:50 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/18 14:44:45 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define FORK_INUSE 0
-# define FORK_OPEN 1
+# define FORK_DIRTY 0
+# define FORK_CLEAN 1
+
+# define FORK_INUSE 3
 
 typedef struct s_game_rules
 {
@@ -43,12 +45,13 @@ typedef struct s_philosopher
 {
 	int					id;
 	int					times_eaten;
+	uint64_t			acc_loss_time;
 	pthread_mutex_t		death_lock;
 	pthread_mutex_t		*logger_lock;
 	uint64_t			last_time_eaten;
 	uint64_t			launch_time;
 	pthread_t			t;
-	t_fork				*owned_fork;
+	t_fork				*right_fork;
 	t_fork				*left_fork;
 	t_game_rules		rules;
 }	t_philosopher;
@@ -56,6 +59,7 @@ typedef struct s_philosopher
 typedef struct s_game
 {
 	int					number_of_philosophers;
+	t_game_rules		*rules;
 	t_philosopher		*philosophers;
 	pthread_mutex_t		logger_lock;
 	t_fork				*forks;
@@ -71,9 +75,9 @@ int				ft_atoi(const char *str);
 int				ft_strisdigit(char *str);
 
 int				philo_parse_args(int ac, char **av, t_game_rules *r);
-int				simulation_start(t_game_rules rules);
-int				game_init(t_game *game, t_game_rules rules);
-int				game_start(t_game *game, t_game_rules *rules);
+int				simulation_start(t_game_rules *rules);
+int				game_init(t_game *game, t_game_rules *rules);
+int				game_start(t_game *game);
 void			game_destroy(t_game *game);
 void			*life_cycle(void *data);
 int				philo_eating(t_philosopher *self);

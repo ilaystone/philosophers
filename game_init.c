@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/11 13:53:11 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/18 14:45:23 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ static int	init_philosophers(t_game *game, t_game_rules rules, uint64_t l)
 	{
 		game->philosophers[i].id = i + 1;
 		game->philosophers[i].rules = rules;
-		game->philosophers[i].last_time_eaten = get_time();
 		game->philosophers[i].launch_time = l;
+		game->philosophers[i].acc_loss_time = 0;
 		game->philosophers[i].logger_lock = &game->logger_lock;
 		if (pthread_mutex_init(&game->philosophers[i].death_lock, NULL) != 0)
 			return (0);
+		game->philosophers[i].last_time_eaten = get_time();
 		if (pthread_create(&game->philosophers[i].t,
 				NULL,
 				&life_cycle,
 				&(game->philosophers[i])) != 0)
 			return (0);
 		i++;
-		usleep(rules.time_to_eat / 2);
 	}
 	return (1);
 }
@@ -63,7 +63,10 @@ static int	init_forks(t_game *game)
 	i = 0;
 	while (i < game->number_of_philosophers)
 	{
-		game->forks[i].state = FORK_OPEN;
+		if (i % 2 == 0)
+			game->forks[i].state = FORK_DIRTY;
+		else
+			game->forks[i].state = FORK_CLEAN;
 		game->forks[i].id = i + 1;
 		if (pthread_mutex_init(&game->forks[i].lock, NULL) != 0)
 			return (0);
@@ -83,18 +86,19 @@ static void	set_forks(t_game *game)
 	nbr = game->number_of_philosophers;
 	while (i < game->number_of_philosophers)
 	{
-		game->philosophers[i].owned_fork = &game->forks[i];
+		game->philosophers[i].right_fork = &game->forks[i];
 		game->philosophers[i].left_fork = &game->forks[(i + 1) % nbr];
 		i++;
 	}
 }
 
-int	game_init(t_game *game, t_game_rules rules)
+int	game_init(t_game *game, t_game_rules *rules)
 {
 	int		nbr;
 
-	nbr = rules.number_of_philosophers;
+	nbr = rules->number_of_philosophers;
 	game->number_of_philosophers = nbr;
+	game->rules = rules;
 	game->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher) * nbr);
 	game->forks = (t_fork *)malloc(sizeof(t_fork) * nbr);
 	if (!game->philosophers || !game->forks)
@@ -102,7 +106,7 @@ int	game_init(t_game *game, t_game_rules rules)
 	if (!init_forks(game))
 		return (error_init(game));
 	set_forks(game);
-	if (!init_philosophers(game, rules, get_time()))
+	if (!init_philosophers(game, *rules, get_time()))
 		return (error_init(game));
 	return (1);
 }
