@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/18 14:44:45 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:56:36 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_philosopher
 {
 	int					id;
 	int					times_eaten;
-	uint64_t			acc_loss_time;
 	pthread_mutex_t		death_lock;
 	pthread_mutex_t		*logger_lock;
 	uint64_t			last_time_eaten;

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/18 14:45:23 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/19 11:18:27 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static int	init_philosophers(t_game *game, t_game_rules rules, uint64_t l)
 	int			i;
 
 	i = 0;
+	(void)l;
 	while (i < game->number_of_philosophers)
 	{
 		game->philosophers[i].id = i + 1;
 		game->philosophers[i].rules = rules;
-		game->philosophers[i].launch_time = l;
-		game->philosophers[i].acc_loss_time = 0;
+		game->philosophers[i].launch_time = get_time();
 		game->philosophers[i].logger_lock = &game->logger_lock;
 		if (pthread_mutex_init(&game->philosophers[i].death_lock, NULL) != 0)
 			return (0);
@@ -51,6 +51,7 @@ static int	init_philosophers(t_game *game, t_game_rules rules, uint64_t l)
 				&life_cycle,
 				&(game->philosophers[i])) != 0)
 			return (0);
+		usleep(100);
 		i++;
 	}
 	return (1);
