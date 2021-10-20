@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:06:58 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/19 10:56:36 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/20 08:32:10 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define FORK_DIRTY 0
-# define FORK_CLEAN 1
-
-# define FORK_INUSE 3
-
 typedef struct s_game_rules
 {
 	int					number_of_philosophers;
@@ -37,7 +32,6 @@ typedef struct s_game_rules
 typedef struct s_fork
 {
 	int					id;
-	int					state;
 	pthread_mutex_t		lock;
 }	t_fork;
 

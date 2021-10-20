@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 15:36:11 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/20 08:24:37 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/20 08:26:36 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	philo_eating(t_philosopher *self)
 {
 	pthread_mutex_lock(&self->right_fork->lock);
-	print_msg(self, "has taken right fork");
+	print_msg(self, "has taken fork");
 	pthread_mutex_lock(&self->left_fork->lock);
-	print_msg(self, "has taken left fork");
+	print_msg(self, "has taken fork");
 	print_msg(self, "is eating");
 	pthread_mutex_lock(&self->death_lock);
 	self->last_time_eaten = get_time();

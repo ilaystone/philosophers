@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:42:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/19 11:18:27 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/20 08:40:14 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ static int	error_init(t_game *game)
 	return (0);
 }
 
-static int	init_philosophers(t_game *game, t_game_rules rules, uint64_t l)
+static int	init_philosophers(t_game *game, t_game_rules rules)
 {
 	int			i;
 
 	i = 0;
-	(void)l;
 	while (i < game->number_of_philosophers)
 	{
 		game->philosophers[i].id = i + 1;
@@ -64,10 +63,6 @@ static int	init_forks(t_game *game)
 	i = 0;
 	while (i < game->number_of_philosophers)
 	{
-		if (i % 2 == 0)
-			game->forks[i].state = FORK_DIRTY;
-		else
-			game->forks[i].state = FORK_CLEAN;
 		game->forks[i].id = i + 1;
 		if (pthread_mutex_init(&game->forks[i].lock, NULL) != 0)
 			return (0);
@@ -107,7 +102,7 @@ int	game_init(t_game *game, t_game_rules *rules)
 	if (!init_forks(game))
 		return (error_init(game));
 	set_forks(game);
-	if (!init_philosophers(game, *rules, get_time()))
+	if (!init_philosophers(game, *rules))
 		return (error_init(game));
 	return (1);
 }

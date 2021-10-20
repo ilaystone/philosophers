@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:45:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/20 08:24:21 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/20 08:38:41 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	*life_cycle(void *data)
 			philo_sleeping(self);
 			philo_thinking(self);
 		}
+		else
+			break ;
 	}
 	return (NULL);
 }
