@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:55:26 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/20 08:08:31 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/20 08:23:50 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_death(t_philosopher *self)
 		self->rules.time_to_die)
 		return (1);
 	pthread_mutex_lock(self->logger_lock);
-		printf("%-3llu ms %-3d died\n",
+	printf("%-3llu ms %-3d died\n",
 		time_stamp(self->launch_time),
 		self->id);
 	return (0);
