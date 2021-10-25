@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:42:44 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/10/20 08:01:20 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/10/25 14:25:16 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,4 @@ void	print_msg(t_philosopher *self, char *msg)
 		self->id,
 		msg);
 	pthread_mutex_unlock(self->logger_lock);
-	usleep(5);
 }
